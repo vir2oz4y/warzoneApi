@@ -25,7 +25,7 @@ def get_stats(nickname):
 @app.route('/warzone/api/v1.0/stats/<nickname>/weapons', methods=['GET'])
 def get_stats_weapon(nickname):
     """return json of statistics weapons"""
-    user = getUser(nickname)  # get user
+    user = getUser(nickname)  # create user
     jsonWeapons = codTrac.get_stats_weapon(user)  # get json
     weapons = [Weapon(jsonWeapon).toJson() for jsonWeapon in jsonWeapons]  # create list of dict weapons
     return jsonify(weapons)  # return json object
@@ -34,9 +34,9 @@ def get_stats_weapon(nickname):
 @app.route('/warzone/api/v1.0/stats/<nickname>/matches', methods=['GET'])
 def get_last_matches(nickname):
     """return json of 19 last matches"""
-    user = getUser(nickname)  # get user
+    user = getUser(nickname)  # create user
     jsonMatches = codTrac.get_last_matches(user)  # get json
-    matches = [Match(match).toDict() for match in jsonMatches]
+    matches = [Match(match).toDict() for match in jsonMatches]  # get dict for all matches
     matches = dict(matches=matches)
     return jsonify(matches)  # return json object
 
@@ -44,10 +44,10 @@ def get_last_matches(nickname):
 @app.route('/warzone/api/v1.0/stats/matches/<idMatch>', methods=['GET'])
 def get_match(idMatch):
     """return json info match"""
-    jsonMatch = codTrac.get_match(idMatch)
-    match = Match(jsonMatch['data']).toDict()
+    jsonMatch = codTrac.get_match(idMatch)  # get json match
+    match = Match(jsonMatch['data']).toDict()  # create dict match
     match = dict(match=match)
-    return jsonify(match)
+    return jsonify(match)  # return json object
 
 
 if __name__ == '__main__':
