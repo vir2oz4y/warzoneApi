@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from CodTracker import CodTracker
 from WeaponInfo.Weapon import Weapon
 from MatchInfo.Match import Match
+from Stats import Stats
 
 app = Flask(__name__)
 API = 'https://api.tracker.gg/api/v2/warzone/standard/profile/battlenet/{name}%23{cod}'
@@ -17,7 +18,8 @@ def get_stats(nickname):
     """return profile statistics """
     user = getUser(nickname)  # create user
     jsonWarzoneStats = codTrac.get_stats_profile(user)  # get json
-    return jsonify(jsonWarzoneStats)  # return json object
+    stats = Stats(jsonWarzoneStats)
+    return jsonify(stats.toDict())  # return json object
 
 
 @app.route('/warzone/api/v1.0/stats/<nickname>/weapons', methods=['GET'])
@@ -43,7 +45,9 @@ def get_last_matches(nickname):
 def get_match(idMatch):
     """return json info match"""
     jsonMatch = codTrac.get_match(idMatch)
-    return jsonify(jsonMatch)
+    match = Match(jsonMatch['data']).toDict()
+    match = dict(match=match)
+    return jsonify(match)
 
 
 if __name__ == '__main__':

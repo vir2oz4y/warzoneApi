@@ -18,7 +18,7 @@ class Match:
         return jsonObject['metadata']['duration']['displayValue']
 
     def getMode(self,jsonObject):  # get mode from json
-        return jsonObject['metadata']['modeName']
+        return jsonObject['attributes']['modeId']
 
     def getTimeStart(self, jsonObject):  # get start time match
         return jsonObject['metadata']['timestamp']
@@ -49,7 +49,7 @@ class Segments:
     def getStatistics(self, jsonObject, mode):  # get stats with selected mode game
         modes = ['br_brtrios','br_brquads','br_brduos','br_brsolo']  # modes warzone
         if mode in modes:
-            return StatisticWarzone(jsonObject['stats'])  # statistic warzone
+            return StatisticWarzone(jsonObject)  # statistic warzone
         return BaseStats(jsonObject['stats'])  # another mode game
 
     def getTeam(self, jsonObject):  # get team from json
