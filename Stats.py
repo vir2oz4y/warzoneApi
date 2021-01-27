@@ -16,17 +16,7 @@ class Stats:
 
     def set_type_info(self, type_stats):
         """return class StatsElement"""
-        kills = type_stats['kills']['value']
-        deaths = type_stats['deaths']['value']
-        downs = type_stats['downs']['value']
-        kda = type_stats['kdRatio']['value']
-        wins = type_stats['wins']['value']
-        top5 = type_stats['top5']['value']
-        top10 = type_stats['top10']['value']
-        top25 = type_stats['top25']['value']
-        wr = type_stats['wlRatio']['displayValue']
-        avgLife = type_stats['averageLife']['displayValue']
-        return StatsElement(kills, deaths, downs, kda, wins, top5, top10, top25, wr, avgLife)
+        return StatsElement(type_stats)
 
     def toDict(self):
         stats = dict(warzone=self.warzone_info, lifetime=self.lifetime_info)
